@@ -40,8 +40,8 @@ TEST_F(TicTactToeTest, DefaultConstructor) {
 	EXPECT_EQ(0, ttt_.nrOfMoves());
 	EXPECT_TRUE(ttt_.notDone());
 	char col, row;
-	for (col = 'a'; col <= 'c'; col++)
-		for (row = '1'; row <= '3'; row++) {
+	for (col = minCol; col <= maxCol; col++)
+		for (row = minRow; row <= maxRow; row++) {
 			EXPECT_EQ(' ', ttt_.getMark(col, row));
 		};
 }
@@ -55,8 +55,8 @@ TEST_F(TicTactToeTest, HappyDay) {
 	};
 	char col, row;
 	bool markIsX = false; // start with 'O'
-	for (col = 'a'; col <= 'c'; col++)
-		for (row = '1'; row <= '3'; row++) {
+	for (col = minCol; col <= maxCol; col++)
+		for (row = minRow; row <= maxRow; row++) {
 			if (markIsX)
 				EXPECT_EQ('X', ttt_.getMark(col, row));
 			else
@@ -67,6 +67,7 @@ TEST_F(TicTactToeTest, HappyDay) {
 	EXPECT_EQ(9, ttt_.nrOfMoves());
 }
 
+// Verify whether unsatisfied pre-conditions indeed trigger failures
 // Verify whether unsatisfied pre-conditions indeed trigger failures
 TEST_F(TicTactToeTest, ContractViolations) {
 	EXPECT_DEATH(ttt_.getMark('1', 'a'), "failed assertion"); // verify switch between col and row

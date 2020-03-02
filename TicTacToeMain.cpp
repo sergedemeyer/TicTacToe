@@ -16,9 +16,9 @@ void displayGame(TicTacToe& ttt) {
 	cout << "TicTacToe numberOfMoves = " << ttt.nrOfMoves() << endl;
 	cout << "    a   b   c   " << endl;
 	cout << "  ------------- " << endl;
-	for (row = '1'; row <= '3'; row++) {
+	for (row = minRow; row <= maxRow; row++) {
 		cout << row;
-		for (col = 'a'; col <= 'c'; col++) {
+		for (col = minCol; col <= maxCol; col++) {
 			cout << " | " << ttt.getMark(col, row);
 		}
 		cout << " |" << endl;

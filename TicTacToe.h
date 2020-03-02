@@ -6,6 +6,7 @@
 // Description : TicTactToe in C++, Ansi-style
 //============================================================================
 
+const char minCol = 'a', maxCol = 'c', minRow = '1', maxRow = '3';
 
 class TicTacToe {
 public:
@@ -34,8 +35,8 @@ REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling 
 The state of the game is represented as 3x3 array of chars marked ' ', 'X', or 'O'.
 We index the state using chess notation, i.e., column is 'a' through 'c' and row is '1' through '3'.
 REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling setMark");
-REQUIRE(('a' <= col) && (col <= 'c'), "col must be between 'a' and 'c'");
-REQUIRE(('1' <= row) && (row <= '3'), "row must be between '1' and '3'");
+REQUIRE((minCol <= col) && (col <= maxCol), "col must be between minCol and 'c'");
+REQUIRE((minRow <= row) && (row <= maxRow), "row must be between '1' and '3'");
 REQUIRE(('X' == marker) || ('O' == marker) || (' ' == marker), "marker must be 'X', 'O' or ' '");
 ENSURE((getMark(col, row) == marker), "setMark postcondition failure");
 */
@@ -45,8 +46,8 @@ ENSURE((getMark(col, row) == marker), "setMark postcondition failure");
 The state of the game is represented as 3x3 array of chars marked ' ', 'X', or 'O'.
 We index the state using chess notation, i.e., column is 'a' through 'c' and row is '1' through '3'.
 REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling getMark");
-REQUIRE(('a' <= col) && (col <= 'c'), "col must be between 'a' and 'c'");
-REQUIRE(('1' <= row) && (row <= '3'), "row must be between '1' and '3'");
+REQUIRE((minCol <= col) && (col <= maxCol), "col must be between minCol and 'c'");
+REQUIRE((minRow <= row) && (row <= maxRow), "row must be between '1' and '3'");
 ENSURE(('X' == result) || ('O' == result) || (' ' == result), "getMark must return 'X', 'O' or ' '");
 */
 	char getMark(char col, char row);
