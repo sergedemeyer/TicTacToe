@@ -1,0 +1,63 @@
+TicTacToe numberOfMoves = 1
+    a   b   c   
+  ------------- 
+1 | O |   |   |
+2 |   |   |   |
+3 |   |   |   |
+  ------------- 
+TicTacToe numberOfMoves = 2
+    a   b   c   
+  ------------- 
+1 | O | X |   |
+2 |   |   |   |
+3 |   |   |   |
+  ------------- 
+TicTacToe numberOfMoves = 3
+    a   b   c   
+  ------------- 
+1 | O | X | O |
+2 |   |   |   |
+3 |   |   |   |
+  ------------- 
+TicTacToe numberOfMoves = 4
+    a   b   c   
+  ------------- 
+1 | O | X | O |
+2 | X |   |   |
+3 |   |   |   |
+  ------------- 
+TicTacToe numberOfMoves = 5
+    a   b   c   
+  ------------- 
+1 | O | X | O |
+2 | X | O |   |
+3 |   |   |   |
+  ------------- 
+TicTacToe numberOfMoves = 6
+    a   b   c   
+  ------------- 
+1 | O | X | O |
+2 | X | O | X |
+3 |   |   |   |
+  ------------- 
+TicTacToe numberOfMoves = 7
+    a   b   c   
+  ------------- 
+1 | O | X | O |
+2 | X | O | X |
+3 | O |   |   |
+  ------------- 
+TicTacToe numberOfMoves = 8
+    a   b   c   
+  ------------- 
+1 | O | X | O |
+2 | X | O | X |
+3 | O | X |   |
+  ------------- 
+TicTacToe numberOfMoves = 9
+    a   b   c   
+  ------------- 
+1 | O | X | O |
+2 | X | O | X |
+3 | O | X | O |
+  ------------- 

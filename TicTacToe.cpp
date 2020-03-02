@@ -9,6 +9,61 @@
 #include "TicTacToe.h"
 #include "DesignByContract.h"
 
+TicTacToePlayer::TicTacToePlayer() {
+	_initCheck = this;
+	_marker = 'X';
+	ENSURE(properlyInitialized(),
+			"constructor must end in properlyInitialized state");
+}
+
+TicTacToePlayer::TicTacToePlayer(char marker) {
+	REQUIRE(('X' == marker) || ('O' == marker), "Constructor requires 'X' or 'O' as marker");
+	_initCheck = this;
+	_marker = marker;
+	ENSURE(properlyInitialized(),
+			"constructor must end in properlyInitialized state");
+}
+
+bool TicTacToePlayer::properlyInitialized() {
+	return _initCheck == this;
+}
+
+void TicTacToePlayer::setMarker(char marker) {
+	REQUIRE(this->properlyInitialized(),
+			"TicTacToePlayer wasn't initialized when calling setMarker");
+	REQUIRE(('X' == marker) || ('O' == marker), "setMarker requires 'X' or 'O' as marker");
+	_marker = marker;
+	ENSURE(getMarker() == marker, "setMarker post condition failure");
+}
+
+char TicTacToePlayer::getMarker() {
+	char result;
+	REQUIRE(this->properlyInitialized(),
+			"TicTacToePlayer wasn't initialized when calling getMarker");
+	result = _marker;
+	ENSURE(('X' == result) || ('O' == result),
+			"getMarker must return 'X' or 'O'");
+	return result;
+}
+
+
+void TicTacToePlayer::doMove(TicTacToe& game) {
+	REQUIRE(this->properlyInitialized(),
+			"TicTacToePlayer wasn't initialized when calling doMove");
+	REQUIRE(game.properlyInitialized(), "game wasn't initialized when passed to Player->doMove");
+	char col, row;
+	col = (char) (game.nrOfMoves() % 3) + minCol;
+	row = (char) (game.nrOfMoves() / 3) + minRow;
+	game.setMark(col, row, _marker);
+}
+
+
+
+
+//
+//----------------------- TicTacToe
+//
+
 TicTacToe::TicTacToe() {
 	int i, j;
 	_initCheck = this;
@@ -17,6 +72,8 @@ TicTacToe::TicTacToe() {
 		for (j = 0; j < maxRow - minRow + 1; j++) {
 			_board[i][j] = ' ';
 		};
+	_players[0].setMarker('O');
+	_players[1].setMarker('X');
 	ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
 }
 
@@ -32,11 +89,7 @@ bool TicTacToe::notDone() {
 
 void TicTacToe::doMove() {
 	REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling doMove");
-	char col, row, marker;
-	col = (char) (_nrOfMoves % 3) + minCol;
-	row = (char) (_nrOfMoves / 3) + minRow;
-	if (_nrOfMoves % 2) marker = 'X'; else marker = 'O'; // when _nrOfMoves is odd assign 'X'
-	this->setMark(col, row, marker);
+	_players[_nrOfMoves % 2].doMove(*this);
 	_nrOfMoves++;
 }
 
@@ -79,21 +132,3 @@ void TicTacToe::writeOn(std::ostream& onStream) {
 	};
 	onStream << "  ------------- " << std::endl;
 }
-
-
-void TicTacToe::displayGame() {
-	char col, row;
-	REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling displayGame");
-	std::cout << "TicTacToe numberOfMoves = " << this->nrOfMoves() << std::endl;
-	std::cout << "    a   b   c   " << std::endl;
-	std::cout << "  ------------- " << std::endl;
-	for (row = minRow; row <= maxRow; row++) {
-		std::cout << row;
-		for (col = minCol; col <= maxCol; col++) {
-			std::cout << " | " << this->getMark(col, row);
-		}
-		std::cout << " |" << std::endl;
-	};
-	std::cout << "  ------------- " << std::endl;
-}
-

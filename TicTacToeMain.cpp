@@ -17,7 +17,6 @@ int main(int argc, char **argv) {
 	while (ttt.notDone()) {
 		ttt.doMove();
 		cout << endl << endl;
-		ttt.displayGame();
-//		ttt.writeOn(cout);
+		ttt.writeOn(cout);
 	};
 }

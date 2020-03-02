@@ -35,6 +35,7 @@ protected:
 
 	// Declares the variables your tests want to use.
 	TicTacToe ttt_;
+	TicTacToePlayer tttPlayer_;
 
 };
 
@@ -48,7 +49,8 @@ TEST_F(TicTactToeTest, DefaultConstructor) {
 	for (col = minCol; col <= maxCol; col++)
 		for (row = minRow; row <= maxRow; row++) {
 			EXPECT_EQ(' ', ttt_.getMark(col, row));
-		};
+		};EXPECT_TRUE(tttPlayer_.properlyInitialized());
+	EXPECT_EQ('X', tttPlayer_.getMarker());
 }
 
 // Tests the "happy day" scenario
@@ -69,6 +71,15 @@ TEST_F(TicTactToeTest, HappyDay) {
 			markIsX = not markIsX;
 		}EXPECT_FALSE(ttt_.notDone());
 	EXPECT_EQ(9, ttt_.nrOfMoves());
+}
+
+// Tests the "happy day" scenario for a player
+TEST_F(TicTactToeTest, HappyDayPlayer) {
+	EXPECT_TRUE(tttPlayer_.properlyInitialized());
+	tttPlayer_.setMarker('O');
+	EXPECT_EQ('O', tttPlayer_.getMarker());
+	tttPlayer_.setMarker('X');
+	EXPECT_EQ('X', tttPlayer_.getMarker());
 }
 
 // Verify whether unsatisfied pre-conditions indeed trigger failures
@@ -108,7 +119,7 @@ bool FileCompare(const std::string leftFileName, const std::string rightFileName
 		result = (leftRead == rightRead);
 	};
 	if (result) {
-		 // last read was still equal; are we at the end of both files ?
+		// last read was still equal; are we at the end of both files ?
 		result = (!leftFile.good()) && (!rightFile.good());
 	};
 
@@ -128,9 +139,9 @@ TEST_F(TicTactToeTest, FileCompare) {
 	myfile.close();
 
 	//compare 2 empty files
-// *** Beware: the following does not work with older versions of libstdc++
-// *** It doesn't work with gcc version 4.0.1 (Apple Inc. build 5465)
-// *** It does work with gcc version 4.2.1
+	// ** Following 2 lines do not work with older versions of the stdd library
+	// Does *not* work with gcc version 4.0.1 (Apple Inc. build 5465)
+	// Does work with gcc version 4.2....
 //	EXPECT_TRUE(FileCompare("testOutput/file1.txt", "testOutput/file2.txt"));
 //	EXPECT_TRUE(FileCompare("testOutput/file2.txt", "testOutput/file1.txt"));
 

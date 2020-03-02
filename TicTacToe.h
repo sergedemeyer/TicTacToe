@@ -10,6 +10,50 @@
 
 const char minCol = 'a', maxCol = 'c', minRow = '1', maxRow = '3';
 
+class TicTacToe; // forward declaration
+
+class TicTacToePlayer {
+public:
+/**
+ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
+*/
+	TicTacToePlayer ();
+
+/**
+REQUIRE(('X' == marker) || ('O' == marker), "Constructor requires 'X' or 'O' as marker");
+ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
+*/
+	TicTacToePlayer (char marker);
+
+	bool properlyInitialized();
+
+/**
+REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling getMarker");
+ENSURE(('X' == result) || ('O' == result), "getMarker must return 'X' or 'O'");
+*/
+	char getMarker();
+
+/**
+REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling setMarker");
+REQUIRE(('X' == marker) || ('O' == marker), "setMarker requires 'X' or 'O' as marker");
+ENSURE(getMarker() == marker, "setMarker post condition failure");
+*/
+	void setMarker(char marker);
+
+/**
+Performs a move
+REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling doMove");
+REQUIRE(game->properlyInitialized(), "game wasn't initialized when passed to Player->doMove");
+*/
+	void doMove(TicTacToe& game);
+
+private:
+	TicTacToePlayer * _initCheck; //use pointer to myself to verify whether I am properly initialized
+	char _marker;
+
+};
+
+
 class TicTacToe {
 public:
 /**
@@ -60,14 +104,10 @@ REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling 
 */
 	void writeOn (std::ostream& onStream);
 
-/**
-REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling displayGame");
-*/
-	void displayGame();
-
 private:
 	TicTacToe * _initCheck; //use pointer to myself to verify whether I am properly initialized
 	int _nrOfMoves;
 	char _board [maxCol - minCol + 1][maxRow - minRow + 1];
+	TicTacToePlayer _players [2];
 
 };
