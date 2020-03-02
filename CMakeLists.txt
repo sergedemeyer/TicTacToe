@@ -4,12 +4,18 @@ project(TicTacToe)
 set(CMAKE_CXX_STANDARD 14)
 
 # Set source files for RELEASE target
-set(RELEASE_SOURCE_FILES TicTacToe.h TicTacToe.cpp TicTacToeMain.cpp)
+set(RELEASE_SOURCE_FILES
+        TicTacToe.h
+        TicTacToe.cpp
+        TicTacToeMain.cpp)
 
 add_executable(TicTacToeMain ${RELEASE_SOURCE_FILES})
 
 # Set source files for TEST target
-set(TEST_SOURCE_FILES TicTacToe.h TicTacToe.cpp TicTacToeTests.cpp)
+set(TEST_SOURCE_FILES
+        TicTacToe.h
+        TicTacToe.cpp
+        TicTacToeTests.cpp)
 
 # Create TEST target
 add_executable(TicTacToeTests ${TEST_SOURCE_FILES})

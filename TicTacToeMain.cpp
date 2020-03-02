@@ -17,6 +17,13 @@ int main(int argc, char **argv) {
 	cout << "START: ttt.nrOfMoves() = " << ttt.nrOfMoves() << endl;
 	while (ttt.notDone()) {
 		ttt.doMove();
+		cout << endl << endl << "ttt.numberOfMoves() = " << ttt.nrOfMoves()
+				<< endl;
+		char col, row;
+		for (row = '0'; row < '3'; row++) {
+			for (col = 'a'; col < 'd'; col++)
+				cout << "ttt.getMark('" << col << "', '" << row << "') = '"
+						<< ttt.getMark(col, row) << "'" << endl;
+		}
 	};
-	cout << "END: ttt.nrOfMoves() = " << ttt.nrOfMoves() << endl;
 }
