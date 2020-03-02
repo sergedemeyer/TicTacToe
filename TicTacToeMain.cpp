@@ -13,6 +13,7 @@ using namespace std;
 
 int main(int argc, char **argv) {
 	TicTacToe ttt;
+	ttt.setMoves("a1c1b2a3c3", "b1a2c2b3");
 
 	while (ttt.notDone()) {
 		ttt.doMove();

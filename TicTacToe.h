@@ -9,6 +9,7 @@
 #include <iostream>
 
 const char minCol = 'a', maxCol = 'c', minRow = '1', maxRow = '3';
+const int maxMoves = 17;
 
 class TicTacToe; // forward declaration
 
@@ -41,16 +42,32 @@ ENSURE(getMarker() == marker, "setMarker post condition failure");
 	void setMarker(char marker);
 
 /**
+REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling setMoves");
+REQUIRE(TicTacToePlayer::legalMoves(stringWithMoves), "TicTacToe::setMoves requires legal stringWithMoves");
+*/
+	void setMoves(const std::string stringWithMoves);
+
+/**
 Performs a move
 REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling doMove");
 REQUIRE(game->properlyInitialized(), "game wasn't initialized when passed to Player->doMove");
 */
 	void doMove(TicTacToe& game);
 
+
+
+/**
+// Static utility predicate, answering whether a string contains a valid sequence of moves
+*/
+static bool legalMoves(const std::string stringWithMoves);
+
+
 private:
 	TicTacToePlayer * _initCheck; //use pointer to myself to verify whether I am properly initialized
 	char _marker;
-
+	char _moves [maxMoves];
+	int _movesLength;
+	int _currentMove;
 };
 
 
@@ -62,6 +79,13 @@ ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state
 	TicTacToe();
 
 	bool properlyInitialized();
+
+/**
+REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling setMoves");
+REQUIRE(TicTacToePlayer::legalMoves(oMoves));
+REQUIRE(TicTacToePlayer::legalMoves(xMoves));
+*/
+	void setMoves(const std::string oMoves, const std::string xMoves);
 
 /**
 REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling notDone");
