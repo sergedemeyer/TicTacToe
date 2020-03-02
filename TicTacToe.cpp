@@ -9,6 +9,46 @@
 #include "TicTacToe.h"
 #include "DesignByContract.h"
 
+//-----------------------------------------
+///auxiliary routines (private use)
+//-----------------------------------------
+
+char checkWinner(TicTacToe& game, char lastCol, char lastRow, char lastPlayer) {
+	char col, row, result;
+	// no pre- and post-conditions here; this is a private method !
+
+	//for a large board, we could imagine a smart algorithm exploring from lastCol and lastRow
+	//for a small board, a brute force approach checking all possible wining boards is probably easier
+	for (row = minRow; row <= maxRow; row++) {
+		result = game.getMark('a', row);
+		if ((result != ' ')
+				& (result == game.getMark('b', row))
+				& (result == game.getMark('c', row))) {
+			return result;
+		}
+	};
+	for (col = minCol; col <= maxCol; col++) {
+		result = game.getMark(col, '1');
+		if ((result != ' ')
+				& (result == game.getMark(col, '2'))
+				& (result == game.getMark(col, '3'))) {
+			return result;
+		}
+	};
+	return ' ';
+}
+
+
+
+
+
+
+
+
+//-----------------------------------------
+///   Player
+//-----------------------------------------
+
 TicTacToePlayer::TicTacToePlayer() {
 	_initCheck = this;
 	_marker = 'X';
@@ -36,7 +76,7 @@ bool TicTacToePlayer::properlyInitialized() {
 void TicTacToePlayer::setMoves(const std::string stringWithMoves) {
 	REQUIRE(this->properlyInitialized(),
 			"TicTacToePlayer wasn't initialized when calling setMoves");
-	REQUIRE(TicTacToePlayer::legalMoves(stringWithMoves), "setMoves requires legalMoves");
+	REQUIRE(legalMoves(stringWithMoves), "setMoves requires legalMoves");
 	_movesLength = stringWithMoves.length();
 	for (int i = 0; i < _movesLength; i++) {
 		_moves[i] = stringWithMoves[i];
@@ -44,18 +84,25 @@ void TicTacToePlayer::setMoves(const std::string stringWithMoves) {
 	_currentMove = 0;
 }
 
-void TicTacToePlayer::doMove(TicTacToe& game) {
+char TicTacToePlayer::doMove(TicTacToe& game) {
+	char result;
+
 	REQUIRE(this->properlyInitialized(),
 			"TicTacToePlayer wasn't initialized when calling doMove");
 	REQUIRE(game.properlyInitialized(),
 			"game wasn't initialized when passed to Player->doMove");
+	result = ' ';
 	if (_currentMove < _movesLength) {
 		char col, row;
 		col = _moves[_currentMove];
 		row = _moves[_currentMove + 1];
 		_currentMove = _currentMove + 2;
 		game.setMark(col, row, _marker);
-	}
+		result = checkWinner(game, col, row, _marker);
+	};
+	ENSURE(('X' == result) || ('O' == result) || (' ' == result),
+			"doMove must return 'X', 'O' or ' '");
+	return result;
 }
 
 void TicTacToePlayer::setMarker(char marker) {
@@ -106,9 +153,9 @@ bool TicTacToePlayer::legalMoves(const std::string stringWithMoves) {
 
 
 
-//
-//----------------------- TicTacToe
-//
+//-----------------------------------------
+///   TicTacToe
+//-----------------------------------------
 
 TicTacToe::TicTacToe() {
 	int i, j;
@@ -122,6 +169,7 @@ TicTacToe::TicTacToe() {
 	_players[0].setMoves("");
 	_players[1].setMarker('X');
 	_players[1].setMoves("");
+	_winner = ' ';
 	ENSURE(properlyInitialized(),
 			"constructor must end in properlyInitialized state");
 }
@@ -143,13 +191,13 @@ bool TicTacToe::properlyInitialized() {
 bool TicTacToe::notDone() {
 	REQUIRE(this->properlyInitialized(),
 			"TicTacToe wasn't initialized when calling notDone");
-	return _nrOfMoves < 9;
+	return (_winner == ' ') & (_nrOfMoves < 9);
 }
 
 void TicTacToe::doMove() {
 	REQUIRE(this->properlyInitialized(),
 			"TicTacToe wasn't initialized when calling doMove");
-	_players[_nrOfMoves % 2].doMove(*this);
+	_winner = _players[_nrOfMoves % 2].doMove(*this);
 	_nrOfMoves++;
 }
 
@@ -186,11 +234,22 @@ char TicTacToe::getMark(char col, char row) {
 	return result;
 }
 
+char TicTacToe::getWinner() {
+	char result;
+	REQUIRE(this->properlyInitialized(),
+			"TicTacToe wasn't initialized when calling getWinner");
+	result = _winner;
+	ENSURE(('X' == result) || ('O' == result) || (' ' == result),
+			"getWinner must return 'X', 'O' or ' '");
+	return result;
+}
+
 void TicTacToe::writeOn(std::ostream& onStream) {
 	char col, row;
 	REQUIRE(this->properlyInitialized(),
 			"TicTacToe wasn't initialized when calling displayGame");
-	onStream << "TicTacToe numberOfMoves = " << this->nrOfMoves() << std::endl;
+	onStream << "TicTacToe numberOfMoves = " << this->nrOfMoves()
+			<< " - winner = '" << this->getWinner() << "'" <<std::endl;
 	onStream << "    a   b   c   " << std::endl;
 	onStream << "  ------------- " << std::endl;
 	for (row = minRow; row <= maxRow; row++) {

@@ -16,44 +16,43 @@ class TicTacToe; // forward declaration
 class TicTacToePlayer {
 public:
 /**
-ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
+\n ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
 */
 	TicTacToePlayer ();
 
 /**
-REQUIRE(('X' == marker) || ('O' == marker), "Constructor requires 'X' or 'O' as marker");
-ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
+\n REQUIRE(('X' == marker) || ('O' == marker), "Constructor requires 'X' or 'O' as marker");
+\n ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
 */
 	TicTacToePlayer (char marker);
 
 	bool properlyInitialized();
 
 /**
-REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling getMarker");
-ENSURE(('X' == result) || ('O' == result), "getMarker must return 'X' or 'O'");
+\n REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling getMarker");
+\n ENSURE(('X' == result) || ('O' == result), "getMarker must return 'X' or 'O'");
 */
 	char getMarker();
 
 /**
-REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling setMarker");
-REQUIRE(('X' == marker) || ('O' == marker), "setMarker requires 'X' or 'O' as marker");
-ENSURE(getMarker() == marker, "setMarker post condition failure");
+\n REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling setMarker");
+\n REQUIRE(('X' == marker) || ('O' == marker), "setMarker requires 'X' or 'O' as marker");
+\n ENSURE(getMarker() == marker, "setMarker post condition failure");
 */
 	void setMarker(char marker);
 
 /**
-REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling setMoves");
-REQUIRE(TicTacToePlayer::legalMoves(stringWithMoves), "TicTacToe::setMoves requires legal stringWithMoves");
+\n REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling setMoves");
+\n REQUIRE(TicTacToePlayer::legalMoves(stringWithMoves), "TicTacToe::setMoves requires legal stringWithMoves");
 */
 	void setMoves(const std::string stringWithMoves);
 
 /**
-Performs a move
-REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling doMove");
-REQUIRE(game->properlyInitialized(), "game wasn't initialized when passed to Player->doMove");
+\n Performs a move
+\n REQUIRE(this->properlyInitialized(), "TicTacToePlayer wasn't initialized when calling doMove");
+\n REQUIRE(game->properlyInitialized(), "game wasn't initialized when passed to Player->doMove");
 */
-	void doMove(TicTacToe& game);
-
+	char doMove(TicTacToe& game);
 
 
 /**
@@ -63,7 +62,7 @@ static bool legalMoves(const std::string stringWithMoves);
 
 
 private:
-	TicTacToePlayer * _initCheck; //use pointer to myself to verify whether I am properly initialized
+	TicTacToePlayer * _initCheck; //!use pointer to myself to verify whether I am properly initialized
 	char _marker;
 	char _moves [maxMoves];
 	int _movesLength;
@@ -74,64 +73,77 @@ private:
 class TicTacToe {
 public:
 /**
-ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
+\n ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
 */
 	TicTacToe();
 
 	bool properlyInitialized();
 
 /**
-REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling setMoves");
-REQUIRE(TicTacToePlayer::legalMoves(oMoves));
-REQUIRE(TicTacToePlayer::legalMoves(xMoves));
+\n REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling setMoves");
+\n REQUIRE(TicTacToePlayer::legalMoves(oMoves));
+\n REQUIRE(TicTacToePlayer::legalMoves(xMoves));
 */
 	void setMoves(const std::string oMoves, const std::string xMoves);
 
 /**
-REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling notDone");
+\n REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling notDone");
 */
 	bool notDone();
 
-/*
-REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling doMove");
+/**
+\n REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling doMove");
 */
 	void doMove();
+
 /**
-REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling nrOfMoves");
+\n REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling nrOfMoves");
 */
 	int nrOfMoves();
 
 /**
 The state of the game is represented as 3x3 array of chars marked ' ', 'X', or 'O'.
 We index the state using chess notation, i.e., column is 'a' through 'c' and row is '1' through '3'.
-REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling setMark");
-REQUIRE((minCol <= col) && (col <= maxCol), "col must be between minCol and 'c'");
-REQUIRE((minRow <= row) && (row <= maxRow), "row must be between '1' and '3'");
-REQUIRE(('X' == marker) || ('O' == marker) || (' ' == marker), "marker must be 'X', 'O' or ' '");
-ENSURE((getMark(col, row) == marker), "setMark postcondition failure");
+\n REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling setMark");
+\n REQUIRE((minCol <= col) && (col <= maxCol), "col must be between minCol and 'c'");
+\n REQUIRE((minRow <= row) && (row <= maxRow), "row must be between '1' and '3'");
+\n REQUIRE(('X' == marker) || ('O' == marker) || (' ' == marker), "marker must be 'X', 'O' or ' '");
+\n ENSURE((getMark(col, row) == marker), "setMark postcondition failure");
 */
 	void setMark(char col, char row, char marker);
 
 /**
 The state of the game is represented as 3x3 array of chars marked ' ', 'X', or 'O'.
 We index the state using chess notation, i.e., column is 'a' through 'c' and row is '1' through '3'.
-REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling getMark");
-REQUIRE((minCol <= col) && (col <= maxCol), "col must be between minCol and 'c'");
-REQUIRE((minRow <= row) && (row <= maxRow), "row must be between '1' and '3'");
-ENSURE(('X' == result) || ('O' == result) || (' ' == result), "getMark must return 'X', 'O' or ' '");
+\n REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling getMark");
+\n REQUIRE((minCol <= col) && (col <= maxCol), "col must be between minCol and 'c'");
+\n REQUIRE((minRow <= row) && (row <= maxRow), "row must be between '1' and '3'");
+\n ENSURE(('X' == result) || ('O' == result) || (' ' == result), "getMark must return 'X', 'O' or ' '");
 */
 	char getMark(char col, char row);
 
-
 /**
-REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling writeOn");
+\n REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling writeOn");
 */
 	void writeOn (std::ostream& onStream);
 
+/**
+\n REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling getWinner");
+\n ENSURE(('X' == result) || ('O' == result) || (' ' == result), "getWinner must return 'X', 'O' or ' '");
+*/
+	char getWinner();
+
+/**
+\n REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling reset");
+\n ENSURE(properlyInitialized(), "reset must end in properlyInitialized state");
+*/
+	void reset();
+
 private:
-	TicTacToe * _initCheck; //use pointer to myself to verify whether I am properly initialized
+	TicTacToe * _initCheck; //!use pointer to myself to verify whether I am properly initialized
 	int _nrOfMoves;
 	char _board [maxCol - minCol + 1][maxRow - minRow + 1];
 	TicTacToePlayer _players [2];
+	char _winner;
 
 };

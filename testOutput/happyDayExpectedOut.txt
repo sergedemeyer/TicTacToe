@@ -1,60 +1,60 @@
-TicTacToe numberOfMoves = 1
+TicTacToe numberOfMoves = 1 - winner = ' '
     a   b   c   
   ------------- 
 1 | O |   |   |
 2 |   |   |   |
 3 |   |   |   |
   ------------- 
-TicTacToe numberOfMoves = 2
+TicTacToe numberOfMoves = 2 - winner = ' '
     a   b   c   
   ------------- 
 1 | O | X |   |
 2 |   |   |   |
 3 |   |   |   |
   ------------- 
-TicTacToe numberOfMoves = 3
+TicTacToe numberOfMoves = 3 - winner = ' '
     a   b   c   
   ------------- 
 1 | O | X | O |
 2 |   |   |   |
 3 |   |   |   |
   ------------- 
-TicTacToe numberOfMoves = 4
+TicTacToe numberOfMoves = 4 - winner = ' '
     a   b   c   
   ------------- 
 1 | O | X | O |
 2 | X |   |   |
 3 |   |   |   |
   ------------- 
-TicTacToe numberOfMoves = 5
+TicTacToe numberOfMoves = 5 - winner = ' '
     a   b   c   
   ------------- 
 1 | O | X | O |
 2 | X | O |   |
 3 |   |   |   |
   ------------- 
-TicTacToe numberOfMoves = 6
+TicTacToe numberOfMoves = 6 - winner = ' '
     a   b   c   
   ------------- 
 1 | O | X | O |
 2 | X | O | X |
 3 |   |   |   |
   ------------- 
-TicTacToe numberOfMoves = 7
+TicTacToe numberOfMoves = 7 - winner = ' '
     a   b   c   
   ------------- 
 1 | O | X | O |
 2 | X | O | X |
 3 | O |   |   |
   ------------- 
-TicTacToe numberOfMoves = 8
+TicTacToe numberOfMoves = 8 - winner = ' '
     a   b   c   
   ------------- 
 1 | O | X | O |
 2 | X | O | X |
 3 | O | X |   |
   ------------- 
-TicTacToe numberOfMoves = 9
+TicTacToe numberOfMoves = 9 - winner = ' '
     a   b   c   
   ------------- 
 1 | O | X | O |

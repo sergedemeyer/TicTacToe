@@ -49,8 +49,7 @@ TEST_F(TicTactToeTest, DefaultConstructor) {
 	for (col = minCol; col <= maxCol; col++)
 		for (row = minRow; row <= maxRow; row++) {
 			EXPECT_EQ(' ', ttt_.getMark(col, row));
-		};
-	EXPECT_TRUE(tttPlayer_.properlyInitialized());
+		};EXPECT_TRUE(tttPlayer_.properlyInitialized());
 	EXPECT_EQ('X', tttPlayer_.getMarker());
 }
 
@@ -71,7 +70,8 @@ TEST_F(TicTactToeTest, HappyDay) {
 			else
 				EXPECT_EQ('O', ttt_.getMark(col, row));
 			markIsX = not markIsX;
-		}EXPECT_FALSE(ttt_.notDone());
+		}
+	EXPECT_FALSE(ttt_.notDone());
 	EXPECT_EQ(9, ttt_.nrOfMoves());
 }
 
@@ -90,6 +90,44 @@ TEST_F(TicTactToeTest, LegalMoves) {
 	EXPECT_FALSE(TicTacToePlayer::legalMoves("b1c4a1"));
 }
 
+// Tests the various "configurations" of winning boards
+TEST_F(TicTactToeTest, TestWinningColO1) {
+	ttt_.setMoves("a1a2a3", "");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('O', ttt_.getWinner());
+}
+
+TEST_F(TicTactToeTest, TestWinningColO2) {
+	ttt_.setMoves("b1b2b3", "");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('O', ttt_.getWinner());
+}
+
+TEST_F(TicTactToeTest, TestWinningColO3) {
+	ttt_.setMoves("c1c2c3", "");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('O', ttt_.getWinner());
+}
+
+TEST_F(TicTactToeTest, TestWinningColX1) {
+	ttt_.setMoves("", "a1a2a3");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('X', ttt_.getWinner());
+}
+
+TEST_F(TicTactToeTest, TestWinningColX2) {
+	ttt_.setMoves("", "b1b2b3");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('X', ttt_.getWinner());
+}
+
+TEST_F(TicTactToeTest, TestWinningColX3) {
+	ttt_.setMoves("", "c1c2c3");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('X', ttt_.getWinner());
+}
+
+
 // Tests the "happy day" scenario for a player
 TEST_F(TicTactToeTest, HappyDayPlayer) {
 	EXPECT_TRUE(tttPlayer_.properlyInitialized());
@@ -106,7 +144,7 @@ TEST_F(TicTactToeTest, ContractViolations) {
 	EXPECT_DEATH(ttt_.getMark('c' + 1, '1'), "failed assertion"); // border condition: col one more than maximum
 	EXPECT_DEATH(ttt_.getMark('a', '0'), "failed assertion"); // border condition: row one less than minimum
 	EXPECT_DEATH(ttt_.getMark('a', '4'), "failed assertion"); // border condition: row one more than maximum
-
+    
 	EXPECT_DEATH(tttPlayer_.setMarker(' '), "failed assertion"); // off value
 }
 
