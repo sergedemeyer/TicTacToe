@@ -11,19 +11,27 @@
 
 using namespace std;
 
+void displayGame(TicTacToe& ttt) {
+	char col, row;
+	cout << "TicTacToe numberOfMoves = " << ttt.nrOfMoves() << endl;
+	cout << "    a   b   c   " << endl;
+	cout << "  ------------- " << endl;
+	for (row = '1'; row <= '3'; row++) {
+		cout << row;
+		for (col = 'a'; col <= 'c'; col++) {
+			cout << " | " << ttt.getMark(col, row);
+		}
+		cout << " |" << endl;
+	};
+	cout << "  ------------- " << endl;
+}
+
 int main(int argc, char **argv) {
 	TicTacToe ttt;
 
-	cout << "START: ttt.nrOfMoves() = " << ttt.nrOfMoves() << endl;
 	while (ttt.notDone()) {
 		ttt.doMove();
-		cout << endl << endl << "ttt.numberOfMoves() = " << ttt.nrOfMoves()
-				<< endl;
-		char col, row;
-		for (row = '0'; row < '3'; row++) {
-			for (col = 'a'; col < 'd'; col++)
-				cout << "ttt.getMark('" << col << "', '" << row << "') = '"
-						<< ttt.getMark(col, row) << "'" << endl;
-		}
+		cout << endl << endl;
+		displayGame(ttt);
 	};
 }

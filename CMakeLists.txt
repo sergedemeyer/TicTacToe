@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 # Set source files for RELEASE target
 set(RELEASE_SOURCE_FILES
+        DesignByContract.h
         TicTacToe.h
         TicTacToe.cpp
         TicTacToeMain.cpp)
@@ -13,6 +14,7 @@ add_executable(TicTacToeMain ${RELEASE_SOURCE_FILES})
 
 # Set source files for TEST target
 set(TEST_SOURCE_FILES
+        DesignByContract.h
         TicTacToe.h
         TicTacToe.cpp
         TicTacToeTests.cpp)
