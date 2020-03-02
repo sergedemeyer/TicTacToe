@@ -6,6 +6,8 @@
 // Description : TicTactToe in C++, Ansi-style
 //============================================================================
 
+#include <iostream>
+
 const char minCol = 'a', maxCol = 'c', minRow = '1', maxRow = '3';
 
 class TicTacToe {
@@ -52,9 +54,20 @@ ENSURE(('X' == result) || ('O' == result) || (' ' == result), "getMark must retu
 */
 	char getMark(char col, char row);
 
+
+/**
+REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling writeOn");
+*/
+	void writeOn (std::ostream& onStream);
+
+/**
+REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling displayGame");
+*/
+	void displayGame();
+
 private:
 	TicTacToe * _initCheck; //use pointer to myself to verify whether I am properly initialized
 	int _nrOfMoves;
-	char _board [3][3];
+	char _board [maxCol - minCol + 1][maxRow - minRow + 1];
 
 };

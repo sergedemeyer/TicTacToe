@@ -63,3 +63,37 @@ char TicTacToe::getMark(char col, char row) {
 	ENSURE(('X' == result) || ('O' == result) || (' ' == result), "getMark must return 'X', 'O' or ' '");
 	return result;
 }
+
+void TicTacToe::writeOn(std::ostream& onStream) {
+	char col, row;
+	REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling displayGame");
+	onStream << "TicTacToe numberOfMoves = " << this->nrOfMoves() << std::endl;
+	onStream << "    a   b   c   " << std::endl;
+	onStream << "  ------------- " << std::endl;
+	for (row = minRow; row <= maxRow; row++) {
+		onStream << row;
+		for (col = minCol; col <= maxCol; col++) {
+			onStream << " | " << this->getMark(col, row);
+		}
+		onStream << " |" << std::endl;
+	};
+	onStream << "  ------------- " << std::endl;
+}
+
+
+void TicTacToe::displayGame() {
+	char col, row;
+	REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling displayGame");
+	std::cout << "TicTacToe numberOfMoves = " << this->nrOfMoves() << std::endl;
+	std::cout << "    a   b   c   " << std::endl;
+	std::cout << "  ------------- " << std::endl;
+	for (row = minRow; row <= maxRow; row++) {
+		std::cout << row;
+		for (col = minCol; col <= maxCol; col++) {
+			std::cout << " | " << this->getMark(col, row);
+		}
+		std::cout << " |" << std::endl;
+	};
+	std::cout << "  ------------- " << std::endl;
+}
+
