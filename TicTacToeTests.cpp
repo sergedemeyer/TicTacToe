@@ -21,25 +21,33 @@ protected:
 	// You should make the members protected s.t. they can be
 	// accessed from sub-classes.
 
-	// virtual void SetUp() will be called before each test is run.  You
-	// should define it if you need to initialize the variables.
-	// Otherwise, this can be skipped.
+/**
+virtual void SetUp() will be called before each test is run.  You
+should define it if you need to initialize the variables.
+Otherwise, this can be skipped.
+*/
 	virtual void SetUp() {
 	}
 
-	// virtual void TearDown() will be called after each test is run.
-	// You should define it if there is cleanup work to do.  Otherwise,
-	// you don't have to provide it.
+/**
+virtual void TearDown() will be called after each test is run.
+You should define it if there is cleanup work to do.  Otherwise,
+you don't have to provide it.
+*/
 	virtual void TearDown() {
 	}
 
-	// Declares the variables your tests want to use.
+/**
+Declares the variables your tests want to use.
+*/
 	TicTacToe ttt_;
 	TicTacToePlayer tttPlayer_;
 
 };
 
-// Tests the default constructor.
+/**
+Tests the default constructor.
+*/
 TEST_F(TicTactToeTest, DefaultConstructor) {
 	EXPECT_TRUE(ttt_.properlyInitialized());
 	// verify post-condition
@@ -53,7 +61,9 @@ TEST_F(TicTactToeTest, DefaultConstructor) {
 	EXPECT_EQ('X', tttPlayer_.getMarker());
 }
 
-// Tests the "happy day" scenario
+/**
+Tests the "happy day" scenario
+*/
 TEST_F(TicTactToeTest, HappyDay) {
 	EXPECT_EQ(0, ttt_.nrOfMoves());
 	EXPECT_TRUE(ttt_.notDone());
@@ -63,19 +73,21 @@ TEST_F(TicTactToeTest, HappyDay) {
 	};
 	char col, row;
 	bool markIsX = false; // start with 'O'
-	for (col = minCol; col <= maxCol; col++)
-		for (row = minRow; row <= maxRow; row++) {
+	for (row = minRow; row < maxRow; row++)	// The diagonal is recognised as a winner. So we stop after verifying first two rows
+		for (col = minCol; col <= maxCol; col++) {
 			if (markIsX)
 				EXPECT_EQ('X', ttt_.getMark(col, row));
 			else
 				EXPECT_EQ('O', ttt_.getMark(col, row));
 			markIsX = not markIsX;
-		}
+		};
 	EXPECT_FALSE(ttt_.notDone());
-	EXPECT_EQ(9, ttt_.nrOfMoves());
+	EXPECT_EQ(7, ttt_.nrOfMoves());
 }
 
-// Tests whether a given string of moves is legal
+/**
+Tests whether a given string of moves is legal
+*/
 TEST_F(TicTactToeTest, LegalMoves) {
 	EXPECT_TRUE(tttPlayer_.properlyInitialized());
 	EXPECT_TRUE(TicTacToePlayer::legalMoves(""));
@@ -90,45 +102,90 @@ TEST_F(TicTactToeTest, LegalMoves) {
 	EXPECT_FALSE(TicTacToePlayer::legalMoves("b1c4a1"));
 }
 
-// Tests the various "configurations" of winning boards
-TEST_F(TicTactToeTest, TestWinningColO1) {
+/**
+Tests the various "configurations" of winning boards
+*/
+TEST_F(TicTactToeTest, TestWinningColumns) {
 	ttt_.setMoves("a1a2a3", "");
 	while (ttt_.notDone()) ttt_.doMove();
 	EXPECT_EQ('O', ttt_.getWinner());
-}
-
-TEST_F(TicTactToeTest, TestWinningColO2) {
+	ttt_.reset();
 	ttt_.setMoves("b1b2b3", "");
 	while (ttt_.notDone()) ttt_.doMove();
 	EXPECT_EQ('O', ttt_.getWinner());
-}
-
-TEST_F(TicTactToeTest, TestWinningColO3) {
+	ttt_.reset();
 	ttt_.setMoves("c1c2c3", "");
 	while (ttt_.notDone()) ttt_.doMove();
 	EXPECT_EQ('O', ttt_.getWinner());
-}
-
-TEST_F(TicTactToeTest, TestWinningColX1) {
+	ttt_.reset();
 	ttt_.setMoves("", "a1a2a3");
 	while (ttt_.notDone()) ttt_.doMove();
 	EXPECT_EQ('X', ttt_.getWinner());
-}
-
-TEST_F(TicTactToeTest, TestWinningColX2) {
+	ttt_.reset();
 	ttt_.setMoves("", "b1b2b3");
 	while (ttt_.notDone()) ttt_.doMove();
 	EXPECT_EQ('X', ttt_.getWinner());
-}
-
-TEST_F(TicTactToeTest, TestWinningColX3) {
+	ttt_.reset();
 	ttt_.setMoves("", "c1c2c3");
 	while (ttt_.notDone()) ttt_.doMove();
 	EXPECT_EQ('X', ttt_.getWinner());
 }
 
+TEST_F(TicTactToeTest, TestWinningRows) {
+	ttt_.setMoves("a1b1c1", "");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('O', ttt_.getWinner());
+	ttt_.reset();
+	ttt_.setMoves("a2b2c2", "");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('O', ttt_.getWinner());
+	ttt_.reset();
+	ttt_.setMoves("a3b3c3", "");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('O', ttt_.getWinner());
+	ttt_.reset();
+	ttt_.setMoves("", "a1b1c1");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('X', ttt_.getWinner());
+	ttt_.reset();
+	ttt_.setMoves("", "a2b2c2");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('X', ttt_.getWinner());
+	ttt_.reset();
+	ttt_.setMoves("", "a3b3c3");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('X', ttt_.getWinner());
+}
 
-// Tests the "happy day" scenario for a player
+TEST_F(TicTactToeTest, TestWinningDiagonals) {
+	ttt_.setMoves("a1b2c3", "");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('O', ttt_.getWinner());
+	ttt_.reset();
+	ttt_.setMoves("a3b2c1", "");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('O', ttt_.getWinner());
+	ttt_.reset();
+	ttt_.setMoves("", "a1b2c3");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('X', ttt_.getWinner());
+	ttt_.reset();
+	ttt_.setMoves("", "a3b2c1");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ('X', ttt_.getWinner());
+}
+
+TEST_F(TicTactToeTest, TestNoWinner) {
+	ttt_.setMoves("b2c1a2c3b3", "b1a3c2a1");
+	while (ttt_.notDone()) ttt_.doMove();
+	EXPECT_EQ(' ', ttt_.getWinner());
+	ttt_.reset();
+}
+
+
+/**
+Tests the "happy day" scenario for a player
+*/
 TEST_F(TicTactToeTest, HappyDayPlayer) {
 	EXPECT_TRUE(tttPlayer_.properlyInitialized());
 	tttPlayer_.setMarker('O');
@@ -137,7 +194,9 @@ TEST_F(TicTactToeTest, HappyDayPlayer) {
 	EXPECT_EQ('X', tttPlayer_.getMarker());
 }
 
-// Verify whether unsatisfied pre-conditions indeed trigger failures
+/**
+Verify whether unsatisfied pre-conditions indeed trigger failures
+*/
 TEST_F(TicTactToeTest, ContractViolations) {
 	EXPECT_DEATH(ttt_.getMark('1', 'a'), "failed assertion"); // verify switch between col and row
 	EXPECT_DEATH(ttt_.getMark('a' - 1, '1'), "failed assertion"); // border condition: col one less than minimum
@@ -148,11 +207,18 @@ TEST_F(TicTactToeTest, ContractViolations) {
 	EXPECT_DEATH(tttPlayer_.setMarker(' '), "failed assertion"); // off value
 }
 
+
+/**
+Auxiliary function for file manipulation in unit tests.
+*/
 bool DirectoryExists(const std::string dirname) {
 	struct stat st;
 	return stat(dirname.c_str(), &st) == 0;
 }
 
+/**
+Auxiliary function for file manipulation in unit tests.
+*/
 bool FileCompare(const std::string leftFileName, const std::string rightFileName) {
 	ifstream leftFile, rightFile;
 	char leftRead, rightRead;
@@ -237,7 +303,9 @@ TEST_F(TicTactToeTest, FileCompare) {
 			FileCompare("testOutput/nonexisting.txt", "testOutput/file1.txt"));
 }
 
-// Tests the output of the "happy day" scenario
+/**
+Tests the output of the "happy day" scenario (one winner).
+*/
 TEST_F(TicTactToeTest, OutputHappyDay) {
 	ASSERT_TRUE(DirectoryExists("testOutput"));
 	//if directory doesn't exist then no need in proceeding with the test
@@ -254,6 +322,27 @@ TEST_F(TicTactToeTest, OutputHappyDay) {
 	EXPECT_TRUE(
 			FileCompare("testOutput/happyDayExpectedOut.txt", "testOutput/happyDayOut.txt"));
 }
+
+
+/**
+Tests the output of another "happy day" scenario (without a winner).
+*/
+TEST_F(TicTactToeTest, OutputNoWinner) {
+	ASSERT_TRUE(DirectoryExists("testOutput"));
+	//if directory doesn't exist then no need in proceeding with the test
+
+	ttt_.setMoves("b2c1a2c3b3", "b1a3c2a1");
+	ofstream myfile;
+	myfile.open("testOutput/noWinnerOut.txt");
+	while (ttt_.notDone()) {
+		ttt_.doMove();
+		ttt_.writeOn(myfile);
+	};
+	myfile.close();
+	EXPECT_TRUE(
+			FileCompare("testOutput/noWinnerExpectedOut.txt", "testOutput/noWinnerOut.txt"));
+}
+
 
 int main(int argc, char **argv) {
 	::testing::InitGoogleTest(&argc, argv);

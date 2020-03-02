@@ -40,24 +40,10 @@ TicTacToe numberOfMoves = 6 - winner = ' '
 2 | X | O | X |
 3 |   |   |   |
   ------------- 
-TicTacToe numberOfMoves = 7 - winner = ' '
+TicTacToe numberOfMoves = 7 - winner = 'O'
     a   b   c   
   ------------- 
 1 | O | X | O |
 2 | X | O | X |
 3 | O |   |   |
-  ------------- 
-TicTacToe numberOfMoves = 8 - winner = ' '
-    a   b   c   
-  ------------- 
-1 | O | X | O |
-2 | X | O | X |
-3 | O | X |   |
-  ------------- 
-TicTacToe numberOfMoves = 9 - winner = ' '
-    a   b   c   
-  ------------- 
-1 | O | X | O |
-2 | X | O | X |
-3 | O | X | O |
   ------------- 

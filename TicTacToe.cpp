@@ -13,6 +13,7 @@
 ///auxiliary routines (private use)
 //-----------------------------------------
 
+
 char checkWinner(TicTacToe& game, char lastCol, char lastRow, char lastPlayer) {
 	char col, row, result;
 	// no pre- and post-conditions here; this is a private method !
@@ -34,6 +35,18 @@ char checkWinner(TicTacToe& game, char lastCol, char lastRow, char lastPlayer) {
 				& (result == game.getMark(col, '3'))) {
 			return result;
 		}
+	};
+	result = game.getMark('a', '1');
+	if ((result != ' ')
+				& (result == game.getMark('b', '2'))
+				& (result == game.getMark('c', '3'))) {
+			return result;
+	};
+	result = game.getMark('a', '3');
+	if ((result != ' ')
+				& (result == game.getMark('b', '2'))
+				& (result == game.getMark('c', '1'))) {
+			return result;
 	};
 	return ' ';
 }
@@ -158,8 +171,15 @@ bool TicTacToePlayer::legalMoves(const std::string stringWithMoves) {
 //-----------------------------------------
 
 TicTacToe::TicTacToe() {
-	int i, j;
 	_initCheck = this;
+	reset();
+	ENSURE(properlyInitialized(),
+			"constructor must end in properlyInitialized state");
+}
+
+void TicTacToe::reset() {
+	int i, j;
+	REQUIRE(this->properlyInitialized(), "TicTacToe wasn't initialized when calling setMoves");
 	_nrOfMoves = 0;
 	for (i = 0; i < maxCol - minCol + 1; i++)
 		for (j = 0; j < maxRow - minRow + 1; j++) {
