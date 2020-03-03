@@ -19,6 +19,7 @@ set(RELEASE_SOURCE_FILES
         TicTacToeUtils.cpp
         TicTacToe.cpp
         TicTacToeImporter.cpp
+        TicTacToeExporter.cpp
         TicTacToeMain.cpp)
 
 add_executable(TicTacToeMain ${RELEASE_SOURCE_FILES})
@@ -39,6 +40,7 @@ set(TEST_SOURCE_FILES
         TicTacToeUtils.cpp
         TicTacToe.cpp
         TicTacToeImporter.cpp
+        TicTacToeExporter.cpp
         TicTacToeTests.cpp)
 
 # Create TEST target

@@ -8,16 +8,21 @@
 
 #include <iostream>
 #include "TicTacToe.h"
+#include "TicTacToeExporter.h"
 
 using namespace std;
 
 int main(int argc, char **argv) {
 	TicTacToe ttt;
+	TicTacToeHTMLTablesIconExporter exporter;
+	
+	exporter.documentStart(cout);
 	ttt.setMoves("a1c1b2a3c3", "b1a2c2b3");
 
 	while (ttt.notDone()) {
 		ttt.doMove();
 		cout << endl << endl;
-		ttt.writeOn(cout);
+		exporter.exportOn(cout, ttt);
 	};
+	exporter.documentEnd(cout);
 }

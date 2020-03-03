@@ -15,6 +15,7 @@ using namespace std;
 
 #include "TicTacToe.h"
 #include "TicTacToeUtils.h"
+#include "TicTacToeExporter.h"
 
 class TicTactToeOutputTest: public ::testing::Test {
 protected:
@@ -133,3 +134,81 @@ TEST_F(TicTactToeOutputTest, OutputNoWinner) {
 	EXPECT_TRUE(
 			FileCompare("testOutput/noWinnerExpectedOut.txt", "testOutput/noWinnerOut.txt"));
 }
+
+
+void auxTestOutput (TicTacToe &game, const std::string expectedOutputFilename) {
+	TicTacToeExporter plainExporter;
+	TicTacToeHTMLExporter htmlExporter;
+	TicTacToeHTMLTablesIconExporter html2Exporter;
+	ofstream myfile;
+	
+	myfile.open("testOutput/zzzOut.txt");
+	plainExporter.documentStart(myfile);
+	plainExporter.exportOn(myfile, game);
+	plainExporter.documentEnd(myfile);
+	myfile.close();
+	EXPECT_TRUE(FileCompare(
+		"testOutput/zzzOut.txt",
+		"testOutput/" + expectedOutputFilename + ".txt"));
+
+	myfile.open("testOutput/zzzOut.html");
+	htmlExporter.documentStart(myfile);
+	htmlExporter.exportOn(myfile, game);
+	htmlExporter.documentEnd(myfile);
+	myfile.close();
+	EXPECT_TRUE(FileCompare(
+		"testOutput/zzzOut.html",
+		"testOutput/" + expectedOutputFilename + ".html"));
+	
+	myfile.open("testOutput/zzzOut2.html");
+	html2Exporter.documentStart(myfile);
+	html2Exporter.exportOn(myfile, game);
+	html2Exporter.documentEnd(myfile);
+	myfile.close();
+	EXPECT_TRUE(FileCompare(
+		"testOutput/zzzOut2.html",
+		"testOutput/" + expectedOutputFilename + "2.html"));
+}
+
+
+
+/**
+Test the exporter with a series of scenarios.
+*/
+TEST_F(TicTactToeOutputTest, ExporterTests) {
+	ASSERT_TRUE(DirectoryExists("testOutput"));
+	//if directory doesn't exist then no need in proceeding with the test
+
+	ttt_.reset();
+	auxTestOutput(ttt_, "exportBlank");
+	ttt_.setMoves("b2c1a2c3b3", "b1a3c2a1");
+	while (ttt_.notDone()) {ttt_.doMove();};
+	auxTestOutput(ttt_, "exportNoWinner");
+	ttt_.reset();
+	ttt_.setMoves("a1b2c3", "");
+	while (ttt_.notDone()) {ttt_.doMove();};
+	auxTestOutput(ttt_, "exportDiagonal");
+}
+
+
+
+/**
+Test whether the contracts for the exporter throw exceptions.
+*/
+TEST_F(TicTactToeOutputTest, ExporterTestsContractViolations) {
+	TicTacToeExporter plainExporter;
+	ofstream myfile;
+
+	myfile.open("testOutput/zzzOut.txt");
+	EXPECT_TRUE(plainExporter.properlyInitialized());
+	EXPECT_FALSE(plainExporter.documentStarted());
+	EXPECT_DEATH(plainExporter.exportOn(myfile, ttt_), "TicTacToeExporter wasn't in documentStarted when calling exportOn.");
+	plainExporter.documentStart(myfile);
+	EXPECT_TRUE(plainExporter.documentStarted());
+	plainExporter.exportOn(myfile, ttt_);
+	plainExporter.documentEnd(myfile);
+	EXPECT_FALSE(plainExporter.documentStarted());
+	EXPECT_DEATH(plainExporter.exportOn(myfile, ttt_), "TicTacToeExporter wasn't in documentStarted when calling exportOn.");
+	myfile.close();
+}
+
