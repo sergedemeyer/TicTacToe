@@ -6,6 +6,12 @@
 // Description : TicTactToe in C++, Ansi-style
 //============================================================================
 
+// Below are two lines serving as a so-called ``header guard''.
+// Prevents from loading the same .h file multiple times
+#ifndef TicTacToe_H
+#define TicTacToe_H
+
+
 #include <iostream>
 
 const char minCol = 'a', maxCol = 'c', minRow = '1', maxRow = '3';
@@ -15,6 +21,7 @@ class TicTacToe; // forward declaration
 
 class TicTacToePlayer {
 public:
+
 /**
 \n ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
 */
@@ -53,7 +60,6 @@ public:
 \n REQUIRE(game->properlyInitialized(), "game wasn't initialized when passed to Player->doMove");
 */
 	char doMove(TicTacToe& game);
-
 
 /**
 // Static utility predicate, answering whether a string contains a valid sequence of moves
@@ -147,3 +153,7 @@ private:
 	char _winner;
 
 };
+
+
+// Closing of the ``header guard''.
+#endif

@@ -1,24 +1,23 @@
 //============================================================================
-// Name        : TicTactToeOutputTest.cpp
+// Name        : TicTacToeUtils.h
 // Author      : Serge Demeyer
 // Version     :
 // Copyright   : Project Software Engineering - BA1 Informatica - Serge Demeyer - University of Antwerp
 // Description : TicTactToe in C++, Ansi-style
 //============================================================================
 
+// Below are two lines serving as a so-called ``header guard''.
+// Prevents from loading the same .h file multiple times
+#ifndef TicTacToeUtils_H
+#define TicTacToeUtils_H
+
+
 #include <iostream>
-#include <fstream>
-#include <sys/stat.h>
-#include <gtest/gtest.h>
 
-using namespace std;
+bool DirectoryExists(const std::string dirname);
 
-#include "TicTacToe.h"
-#include "TicTacToeDomainTests.cpp"
-#include "TicTacToeOutputTests.cpp"
+bool FileCompare(const std::string leftFileName, const std::string rightFileName);
 
 
-int main(int argc, char **argv) {
-	::testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
-}
+// Closing of the ``header guard''.
+#endif

@@ -89,7 +89,7 @@ bool TicTacToePlayer::properlyInitialized() {
 void TicTacToePlayer::setMoves(const std::string stringWithMoves) {
 	REQUIRE(this->properlyInitialized(),
 			"TicTacToePlayer wasn't initialized when calling setMoves");
-	REQUIRE(legalMoves(stringWithMoves), "setMoves requires legalMoves");
+	REQUIRE(TicTacToePlayer::legalMoves(stringWithMoves), "setMoves requires legalMoves");
 	_movesLength = stringWithMoves.length();
 	for (int i = 0; i < _movesLength; i++) {
 		_moves[i] = stringWithMoves[i];
