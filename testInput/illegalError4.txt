@@ -1,0 +1,2 @@
+XML PARTIAL IMPORT: Expected <MOVES_O> ... </MOVES_O>.
+XML PARTIAL IMPORT: Expected <MOVES_X> ... </MOVES_X>.

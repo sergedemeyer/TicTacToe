@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<TicTacToe>
+	<MOVES_O>a1c1b2a3c3</MOVES_O>
+	<MOVES_X>b1a2c2b3</MOVES_X>
+</TicTacToe>

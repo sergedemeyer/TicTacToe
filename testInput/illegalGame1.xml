@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<TicTacToe>
+<!-- Normally the single character string in MOVES-O is illegal. But the XML parser sttrips spaces and then it becomes a n emptyt string
+	MOVES_X is illegal because it lacks a column indicator at the very end -->
+	<MOVES_O> </MOVES_O>
+	<MOVES_X>a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a</MOVES_X>
+</TicTacToe>

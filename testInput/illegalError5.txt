@@ -1,0 +1,2 @@
+XML PARTIAL IMPORT: Expected <MOVES_X> ... </MOVES_X>.
+XML PARTIAL IMPORT: Illegal moves 'b1c1a4'.

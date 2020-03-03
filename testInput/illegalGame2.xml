@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<TicTacToe>
+<!-- k is illegal in MOVES-O
+	4 is illegal in MOVES-X -->
+	<MOVES_O>b1k1a1</MOVES_O>
+	<MOVES_X>b1c4a1</MOVES_X>
+</TicTacToe>

@@ -6,10 +6,19 @@ set(CMAKE_CXX_STANDARD 14)
 # Set source files for RELEASE target
 set(RELEASE_SOURCE_FILES
         DesignByContract.h
+        tinystr.h
+        tinyxml.h
         TicTacToeUtils.h
         TicTacToe.h
+        TicTacToeImporter.h
+
+        tinystr.cpp
+        tinyxml.cpp
+        tinyxmlerror.cpp
+        tinyxmlparser.cpp
         TicTacToeUtils.cpp
         TicTacToe.cpp
+        TicTacToeImporter.cpp
         TicTacToeMain.cpp)
 
 add_executable(TicTacToeMain ${RELEASE_SOURCE_FILES})
@@ -17,10 +26,19 @@ add_executable(TicTacToeMain ${RELEASE_SOURCE_FILES})
 # Set source files for TEST target
 set(TEST_SOURCE_FILES
         DesignByContract.h
+        tinystr.h
+        tinyxml.h
         TicTacToeUtils.h
         TicTacToe.h
+        TicTacToeImporter.h
+
+        tinystr.cpp
+        tinyxml.cpp
+        tinyxmlerror.cpp
+        tinyxmlparser.cpp
         TicTacToeUtils.cpp
         TicTacToe.cpp
+        TicTacToeImporter.cpp
         TicTacToeTests.cpp)
 
 # Create TEST target

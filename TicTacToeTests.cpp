@@ -16,6 +16,7 @@ using namespace std;
 #include "TicTacToe.h"
 #include "TicTacToeDomainTests.cpp"
 #include "TicTacToeOutputTests.cpp"
+#include "TicTacToeInputTests.cpp"
 
 
 int main(int argc, char **argv) {

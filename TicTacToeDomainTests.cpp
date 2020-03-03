@@ -79,7 +79,6 @@ TEST_F(TicTactToeDomainTest, LegalMoves) {
 	EXPECT_TRUE(TicTacToePlayer::legalMoves("a1a2a3b1b2b3c1c2c3"));
 	//illegal moves
 	EXPECT_FALSE(TicTacToePlayer::legalMoves(" "));
-    EXPECT_FALSE(TicTacToePlayer::legalMoves("   "));
 	EXPECT_FALSE(TicTacToePlayer::legalMoves("a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a"));
 	EXPECT_FALSE(TicTacToePlayer::legalMoves(" "));
 	EXPECT_FALSE(TicTacToePlayer::legalMoves("b1k1a1"));

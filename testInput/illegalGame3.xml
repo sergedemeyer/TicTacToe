@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<!-- TikTacToe is an unknown tag; this board will be empty -->
+<TikTacToe>
+	<MOVES_O>b1c1a1</MOVES_O>
+	<MOVES_X>b1c3a1</MOVES_X>
+</TikTacToe>

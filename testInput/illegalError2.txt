@@ -1,0 +1,2 @@
+XML PARTIAL IMPORT: Illegal moves 'b1k1a1'.
+XML PARTIAL IMPORT: Illegal moves 'b1c4a1'.

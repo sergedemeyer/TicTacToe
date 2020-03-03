@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<!-- MOVES_O is used three times; MOVES_X is missing.
+	First MOVES_O has a a4 which is illegal.-->
+<TicTacToe>
+	<MOVES_O>b1c1a4</MOVES_O>
+	<MOVES_O>b1c3a1</MOVES_O>
+</TicTacToe>

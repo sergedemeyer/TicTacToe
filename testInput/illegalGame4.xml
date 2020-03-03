@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<!-- MOVES_Z is an unknown tag; this board will be empty -->
+<TicTacToe>
+	<MOVES_Z>b1c1a1</MOVES_Z>
+	<MOVES_Z>b1c3a1</MOVES_Z>
+</TicTacToe>
